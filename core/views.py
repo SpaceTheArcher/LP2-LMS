@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import request
-from core.forms import ContatoForm, DisciplinaForm, AvisosForm, MensagemAlunoForm, QuestaoForm, RespostaForm, CadastroForm
+from core.forms import ContatoForm, DisciplinaForm, AvisosForm, MensagemAlunoForm, QuestaoForm, RespostaForm, CadastroForm, MatriculaForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required, user_passes_test
-from core.models import Aluno, Professor, MensagemAluno, Avisos, Questao, Resposta
+from core.models import Aluno, Professor, MensagemAluno, Avisos, Questao, Resposta, Matricula
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash, login, authenticate
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
@@ -311,3 +311,35 @@ def page_resumo_tarefas(request):
         "questoes":questoes
     }
     return render(request, "ResumoTarefaProfessor.html", contexto)
+
+@login_required(login_url="/Login")
+@user_passes_test(checa_aluno)
+def page_aluno_matricula(request) :
+    reg = False
+    if request.POST:
+        form = MatriculaForm(request.POST)
+        matricula = form.save(commit=False)
+        matricula.id_aluno = Aluno.objects.get(id=request.user.id)
+        for matriculas in Matricula.objects.all():
+            if matriculas.id_aluno == Aluno.objects.get(id=request.user.id) :
+                if matriculas.id_turma_matricula == matricula.id_turma_matricula:
+                    reg = True
+                    break
+                else : 
+                    continue
+            else :
+                continue  
+        if reg == False:    
+            if form.is_valid():
+                matricula.save()
+                print("Matricula Realizada")
+                return redirect('/Matricular')
+        else :
+            print("JA REGISTRADO")
+    else:
+        form = MatriculaForm()
+    contexto = {
+		"form":form,
+        "reg":reg,
+    }
+    return render(request, "AlunoMatricula.html", contexto)

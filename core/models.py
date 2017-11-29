@@ -227,7 +227,7 @@ class Questao(models.Model):
         unique_together = (('id_turma_questao', 'numero'),)
 
     def __str__(self):
-        return 'Questao' + self.descricao
+        return 'Questao ' + str(self.numero) + ' ' + self.descricao
 
     def prazo(self, agora):
         return self.data_limite_entrega > agora

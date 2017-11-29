@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Disciplina, Contato, Avisos, MensagemAluno, Questao, Resposta, Usuario
+from core.models import Disciplina, Contato, Avisos, MensagemAluno, Questao, Resposta, Usuario, Matricula
 from django.contrib.auth.forms import UserCreationForm
 
 class ContatoForm(forms.ModelForm):
@@ -56,4 +56,10 @@ class CadastroForm(UserCreationForm):
 
     class Meta:
         model = Usuario
-        fields = ("nome", "ra", "email")
+        fields = ["nome", "ra", "email"]
+
+class MatriculaForm(forms.ModelForm):
+    
+    class Meta:
+        model = Matricula
+        fields = ['id_turma_matricula',]

@@ -3,15 +3,23 @@ h1 {
 }
 
 .content {
-    width: 50%;
+    width: 40%;
     text-align: center;
     margin: 20px auto;
-    display: flex;
     padding: 10px;
-    flex-flow: column wrap;
-    justify-content: space-evenly;
     height: auto;
     background-color: lightgray;
+}
+
+.display {
+    text-align: center;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 240px;
+    margin: 10px auto;
+    max-height: 350px;
+    overflow-y: visible;
+    overflow-x: hidden;
 }
 
 a.aoption {

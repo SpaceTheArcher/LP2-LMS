@@ -38,6 +38,7 @@ from core.views import page_cadastrar_questao
 from core.views import page_responder_questao
 from core.views import page_respostas_recebidas
 from core.views import page_resumo_tarefas
+from core.views import page_aluno_matricula
 from django.contrib.auth.views import login, logout
 
 urlpatterns = [
@@ -66,6 +67,6 @@ urlpatterns = [
     url(r'^Professor/CadastrarQuestao/', page_cadastrar_questao),
     url(r'^QuestoesRecebidas/', page_responder_questao),
     url(r'^Professor/Respostas', page_respostas_recebidas),
-    url(r'^Professor/ResumoTarefas', page_resumo_tarefas)
-
+    url(r'^Professor/ResumoTarefas', page_resumo_tarefas),
+    url(r'^Matricular/', page_aluno_matricula)
 ]
